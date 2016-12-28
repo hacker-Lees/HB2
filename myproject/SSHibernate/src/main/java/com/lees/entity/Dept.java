@@ -9,8 +9,9 @@ import javax.persistence.*;
 @Table(name = "tb_dept")
 public class Dept {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int deptno;
+    @Column(length = 25)
     private String dname;
     private String loc;
 

@@ -37,10 +37,17 @@
     </build>
 
     <dependencies>
+        <!--测试类jar包-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+        </dependency>
+        <!-- 导入java ee jar 包 -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
         </dependency>
 
         <dependency>
@@ -59,6 +66,12 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.2.5.Final</version>
         </dependency>
+        <!--配置hibernate缓存-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>5.2.5.Final</version>
+        </dependency>
 
         <!-- 日志记录(在控制台输出MyBatis的SQL语句) -->
         <dependency>
@@ -70,8 +83,14 @@
         <!-- Spring 核心 -->
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.3.5.RELEASE</version>
+        </dependency>
+        <!-- Spring 上下文 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.4.RELEASE</version>
+            <version>4.3.5.RELEASE</version>
         </dependency>
         <!-- Spring Web-->
         <dependency>
@@ -80,6 +99,12 @@
             <version>4.3.4.RELEASE</version>
         </dependency>
         <!-- Spring AOP -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.3.5.RELEASE</version>
+        </dependency>
+        <!--面向切面编程-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -96,7 +121,7 @@
             <artifactId>spring-jdbc</artifactId>
             <version>4.3.4.RELEASE</version>
         </dependency>
-
+        <!--Spring Hibernate-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
@@ -139,5 +164,18 @@
             <version>1.2.21</version>
         </dependency>
     </dependencies>
+
+
+    <id>jdk-1.8</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+        <jdk>1.8</jdk>
+    </activation>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+    </properties>
+
 
 </project>

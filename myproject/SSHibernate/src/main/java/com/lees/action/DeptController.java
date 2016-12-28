@@ -1,42 +1,43 @@
 package com.lees.action;
 
 import com.lees.entity.Dept;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import com.lees.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/27.
  */
 @Controller
-@RequestMapping("/dept")
+@Transactional
 public class DeptController {
+
     @Autowired
-    private SessionFactory sessionFactory;
+    private DeptService deptService;
 
-    @RequestMapping("/add")
-    public void addDept() {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction tx = session.getTransaction();
-        try {
-            tx.begin();
+    @RequestMapping(value = "/showDepts")
+    public ModelAndView showDepts() {
+        List<Dept> depts = deptService.findAll();
+        return new ModelAndView("/index.jsp", "depts", depts);
+    }
 
-            Dept dept = new Dept();
-            dept.setDeptno(10);
-            dept.setDname("ACCOUNTING");
-            dept.setLoc("NEWYORK");
-            session.save(dept);
-
-            tx.commit();
-        } catch (Exception e) {
-            tx.rollback();
-            e.printStackTrace();
-        } finally {
-            tx = null;
-            session.close();
+    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
+    public String addDept(Model model, Dept dept) {
+        if (dept.getDname() != null) {
+            deptService.AddDept(dept);
+            List<Dept> depts = deptService.findAll();
+            model.addAttribute("depts", depts);
+            return "forward:/index.jsp";
+        }else {
+            String res="请输入要添加的部门信息";
+            return "forward:/index.jsp";
         }
     }
 }
